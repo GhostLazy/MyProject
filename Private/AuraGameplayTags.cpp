@@ -26,7 +26,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	/*
 	 * Secondary Attributes
 	 */
-	GameplayTags.Attributes_Secondary_Aromr = UGameplayTagsManager::Get().AddNativeGameplayTag(
+	GameplayTags.Attributes_Secondary_Armor = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.Armor"), FString("Reduces damage taken, improves Block Chance"));
 
 	GameplayTags.Attributes_Secondary_ArmorPenetration = UGameplayTagsManager::Get().AddNativeGameplayTag(
@@ -76,4 +76,10 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 
 	GameplayTags.InputTag_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("InputTag.4"), FString("Input Tag for 4 key"));
+	
+	GameplayTags.Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Damage"), FString("Damage"));
+	
+	GameplayTags.Effects_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Effects.HitReact"), FString("Tag granted when Hit Reacting"));
 }
