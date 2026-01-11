@@ -70,7 +70,12 @@ void UExecCalc_Damage::Execute_Implementation(const FGameplayEffectCustomExecuti
 	/* Boilerplate End */
 	
 	// Get Damage Set by Caller Magnitude
-	float Damage = Spec.GetSetByCallerMagnitude(FAuraGameplayTags::Get().Damage);
+	float Damage = 0.f;
+	for (const TPair<FGameplayTag, FGameplayTag>& Pair : FAuraGameplayTags::Get().DamageTypesToResistances)
+	{
+		const float DamageTypeValue = Spec.GetSetByCallerMagnitude(Pair.Key);
+		Damage += DamageTypeValue;
+	}
 	
 	// Block -> Armor -> CriticalHit
 	/* BlockChance Start */
