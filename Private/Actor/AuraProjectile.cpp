@@ -56,14 +56,8 @@ void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, 
                                       UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	/* Ban Self-Damage */
-	// TODO: Dedicated Server BUG -> Projectile Explode at the position of EffectCauser, but Damage is suffered by Enemy.
-	if (DamageEffectSpecHandle.Data.IsValid())
-	{
-		const AActor* EffectCauser = DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser();
-	//	UE_LOG(LogTemp, Warning, TEXT("EffectCauser: %p, OtherActor: %p"), EffectCauser, OtherActor);
-	//	UE_LOG(LogTemp, Warning, TEXT("EffectCauser Name: %s, OtherActor Name: %s"), EffectCauser ? *EffectCauser->GetName() : TEXT("NULL"), OtherActor ? *OtherActor->GetName() : TEXT("NULL"));
-		if (EffectCauser == OtherActor) return;
-	}
+	if (!DamageEffectSpecHandle.Data.IsValid()) return;
+	if (DamageEffectSpecHandle.Data.Get()->GetContext().GetEffectCauser() == OtherActor) return;
 	
 	if (!bHit)
 	{
