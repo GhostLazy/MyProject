@@ -9,6 +9,9 @@
 #include "MyProject/MyProject.h"
 #include "UI/Widget/AuraUserWidget.h"
 #include "AuraGameplayTags.h"
+#include "AI/AuraAIController.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 AAuraEnemy::AAuraEnemy()
@@ -18,11 +21,27 @@ AAuraEnemy::AAuraEnemy()
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
+	
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+	GetCharacterMovement()->bUseControllerDesiredRotation = true;
 
 	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 	
 	HealthBar = CreateDefaultSubobject<UWidgetComponent>("HealthBar");
 	HealthBar->SetupAttachment(GetRootComponent());
+}
+
+void AAuraEnemy::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	
+	if (!HasAuthority()) return;
+	AuraAIController = Cast<AAuraAIController>(NewController);
+	
+	AuraAIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
+	AuraAIController->RunBehaviorTree(BehaviorTree);
 }
 
 void AAuraEnemy::HighlightActor()
