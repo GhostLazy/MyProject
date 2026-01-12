@@ -73,8 +73,8 @@ bool FAuraGameplayEffectContext::NetSerialize(FArchive& Ar, class UPackageMap* M
 		{
 			HitResult = TSharedPtr<FHitResult>(new FHitResult());
 		}
+		HitResult->NetSerialize(Ar, Map, bOutSuccess);
 	}
-	HitResult->NetSerialize(Ar, Map, bOutSuccess);
 	if (RepBits & (1 << 6))
 	{
 		Ar << WorldOrigin;
