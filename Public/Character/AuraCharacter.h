@@ -21,10 +21,11 @@ public:
 
 	/* Player Interface Start */
 	virtual void AddToXP_Implementation(int32 InXP) override;
+	virtual void LevelUp_Implementation() override;
 	/* Player Interface End */
 	
 	/* Combat Interface Start */
-	virtual int32 GetPlayerLevel() override;
+	virtual int32 GetPlayerLevel_Implementation() override;
 	/* Combat Interface End */
 private:
 	virtual void InitAbilityActorInfo() override;
