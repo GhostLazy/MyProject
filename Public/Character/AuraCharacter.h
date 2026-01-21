@@ -4,13 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Character/AuraCharacterBase.h"
+#include "Interaction/PlayerInterface.h"
 #include "AuraCharacter.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class MYPROJECT_API AAuraCharacter : public AAuraCharacterBase
+class MYPROJECT_API AAuraCharacter : public AAuraCharacterBase, public IPlayerInterface
 {
 	GENERATED_BODY()
 public:
@@ -18,9 +19,13 @@ public:
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
 
-	/** Combat Interface */
+	/* Player Interface Start */
+	virtual void AddToXP_Implementation(int32 InXP) override;
+	/* Player Interface End */
+	
+	/* Combat Interface Start */
 	virtual int32 GetPlayerLevel() override;
-	/** end Combat Interface */
+	/* Combat Interface End */
 private:
 	virtual void InitAbilityActorInfo() override;
 };

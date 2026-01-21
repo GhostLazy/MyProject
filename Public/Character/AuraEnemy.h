@@ -23,17 +23,17 @@ public:
 	AAuraEnemy();
 	virtual void PossessedBy(AController* NewController) override;
 
-	/** Enemy Interface */
+	/* Enemy Interface Start */
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
-	/** end Enemy Interface */
+	/* Enemy Interface End */
 
-	/** Combat Interface */
+	/* Combat Interface Start */
 	virtual int32 GetPlayerLevel() override;
 	virtual void Die() override;
 	virtual void SetCombatTarget_Implementation(AActor* InCombatTarget) override;
 	virtual AActor* GetCombatTarget_Implementation() const override;
-	/** end Combat Interface */
+	/* Combat Interface End */
 	
 	UPROPERTY(BlueprintAssignable)
 	FOnAttributeChangedSignature OnHealthChanged;
