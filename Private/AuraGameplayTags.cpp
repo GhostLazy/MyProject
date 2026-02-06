@@ -158,7 +158,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.DamageTypesToDebuffs.Add(GameplayTags.Damage_Physical, GameplayTags.Debuff_Physical);
 	/* Map of Damage Types to Debuffs Start */
 	
-	/* Abilities Start */
+	/* Offensive Abilities Start */
 	GameplayTags.Abilities_None = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.None"), FString("No Ability - like the nullptr for Ability Tags"));
 	
@@ -173,7 +173,20 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Abilities_Lightning_Electrocute = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Lightning.Electrocute"), FString("Electrocute Ability Tag"));
+	/* Offensive Abilities End */
 	
+	/* Passive Abilities Start */
+	GameplayTags.Abilities_Passive_HaloOfProtection = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Passive.HaloOfProtection"), FString("Halo Of Protection"));
+
+	GameplayTags.Abilities_Passive_LifeSiphon = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Passive.LifeSiphon"), FString("Life Siphon"));
+	
+	GameplayTags.Abilities_Passive_ManaSiphon = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Passive.ManaSiphon"), FString("Mana Siphon"));
+	/* Passive Abilities End */
+	
+	/* Other Abilities Start */
 	GameplayTags.Abilities_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.HitReact"), FString("Hit React Ability Tag"));
 	
@@ -197,7 +210,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Abilities_Type_None = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Type.None"), FString("None Type"));
-	/* Abilities End */
+	/* Other Abilities End */
 	
 	/* Cooldown Start */
 	GameplayTags.Cooldown_Fire_FireBolt = UGameplayTagsManager::Get().AddNativeGameplayTag(

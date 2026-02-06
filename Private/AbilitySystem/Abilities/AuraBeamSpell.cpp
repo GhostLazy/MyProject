@@ -71,8 +71,7 @@ TArray<AActor*> UAuraBeamSpell::StoreAdditionalTargets()
 	UAuraAbilitySystemLibrary::GetLivePlayersWithinRadius(GetAvatarActorFromActorInfo(), OverlappingActors,
 	                                                      ActorsToIgnore, 850.f, MouseHitActor->GetActorLocation());
 	
-	// int32 NumAdditionalTargets = FMath::Min(GetAbilityLevel() - 1, MaxNumShockTargets);
-	int32 NumAdditionalTargets = MaxNumShockTargets;
+	const int32 NumAdditionalTargets = FMath::Min(GetAbilityLevel() - 1, MaxNumShockTargets);
 	
 	TArray<AActor*> OverlappingEnemies;
 	for (AActor* Actor : OverlappingActors)
