@@ -163,7 +163,7 @@ void UAuraAttributeSet::HandleIncomingDamage(const FEffectProperties& Props)
 		const float NewHealth = GetHealth() - LocalIncomingDamage;
 		SetHealth(FMath::Clamp(NewHealth, 0.f, GetMaxHealth()));
 
-		if (NewHealth <= 0.f)
+		if (NewHealth <= 0.f) // 致命伤害
 		{
 			if (ICombatInterface* CombatInterface = Cast<ICombatInterface>(Props.TargetAvatarActor))
 			{
@@ -174,9 +174,12 @@ void UAuraAttributeSet::HandleIncomingDamage(const FEffectProperties& Props)
 		}
 		else
 		{
-			FGameplayTagContainer TagContainer;
-			TagContainer.AddTag(FAuraGameplayTags::Get().Effects_HitReact);
-			Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
+			if (Props.TargetCharacter->Implements<UCombatInterface>() && !ICombatInterface::Execute_IsBeingShocked(Props.TargetCharacter))
+			{
+				FGameplayTagContainer TagContainer;
+				TagContainer.AddTag(FAuraGameplayTags::Get().Effects_HitReact);
+				Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
+			}
 			
 			const FVector& KnockbackForce = UAuraAbilitySystemLibrary::GetKnockbackForce(Props.EffectContextHandle);
 			if (!KnockbackForce.IsNearlyZero(1.f))
