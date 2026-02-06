@@ -26,7 +26,13 @@ public:
 	void TraceFirstTarget(const FVector& BeamTargetLocation);
 	
 	UFUNCTION(BlueprintCallable)
-	void StoreAdditionalTargets(TArray<AActor*>& OutAdditionalTargets);
+	TArray<AActor*> StoreAdditionalTargets();
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void PrimaryTargetDied(AActor* DeadActor);
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void AdditionalTargetDied(AActor* DeadActor);
 	
 protected:
 	

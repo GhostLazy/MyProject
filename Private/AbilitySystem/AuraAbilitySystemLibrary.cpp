@@ -386,6 +386,11 @@ FGameplayTag UAuraAbilitySystemLibrary::RequestGameplayTag(const FName& TagName,
 	return FGameplayTag::RequestGameplayTag(TagName, ErrorIfNotFound);
 }
 
+AActor* UAuraAbilitySystemLibrary::FetchActor(FActorInstanceHandle HitObjectHandle)
+{
+	return HitObjectHandle.FetchActor();
+}
+
 TArray<FRotator> UAuraAbilitySystemLibrary::EvenlySpreadRotators(const FVector& Forward, const FVector& Axis, float Spread, int32 NumRotators)
 {
 	TArray<FRotator> Rotators;
