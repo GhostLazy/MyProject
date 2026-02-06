@@ -30,6 +30,7 @@ public:
 	TObjectPtr<USceneComponent> HomingTargetSceneComponent;
 
 protected:
+	
 	virtual void BeginPlay() override;
 	void OnHit();
 	virtual void Destroyed() override;
@@ -37,6 +38,13 @@ protected:
 	UFUNCTION()
 	void OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	                     int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<UNiagaraSystem> ImpactEffect;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	TObjectPtr<USoundBase> ImpactSound;
+	
 private:
 	
 	UPROPERTY(EditDefaultsOnly)
@@ -46,12 +54,6 @@ private:
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> Sphere;
-	
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<UNiagaraSystem> ImpactEffect;
-	
-	UPROPERTY(EditAnywhere)
-	TObjectPtr<USoundBase> ImpactSound;
 	
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USoundBase> LoopingSound;
