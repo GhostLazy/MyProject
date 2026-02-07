@@ -16,6 +16,8 @@ class MYPROJECT_API UAuraPassiveAbility : public UAuraGameplayAbility
 	
 public:
 	
+	UAuraPassiveAbility();
+	
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo,
 	                             const FGameplayAbilityActivationInfo ActivationInfo,
 	                             const FGameplayEventData* TriggerEventData) override;
