@@ -215,6 +215,11 @@ void UAuraAbilitySystemComponent::AssignSlotToAbility(FGameplayAbilitySpec& Spec
 	Spec.GetDynamicSpecSourceTags().AddTag(Slot);
 }
 
+void UAuraAbilitySystemComponent::MulticastActivatePassiveEffect_Implementation(const FGameplayTag& AbilityTag, bool bActivate)
+{
+	ActivatePassiveEffect.Broadcast(AbilityTag, bActivate);
+}
+
 FGameplayAbilitySpec* UAuraAbilitySystemComponent::GetSpecFromAbilityTag(const FGameplayTag& AbilityTag)
 {
 	FScopedAbilityListLock ActiveScopeLock(*this);
@@ -319,9 +324,10 @@ void UAuraAbilitySystemComponent::ServerEquipAbility_Implementation(const FGamep
 						ClientEquipAbility(AbilityTag, GameplayTags.Abilities_Status_Equipped, Slot, PrevSlot);
 						return;	//若选定技能与选定技能槽中原有技能相同，提前同步并返回
 					}
-					if (IsPassiveAbility(*SpecWithSlot))	//若选定技能槽中的技能为被动技能，禁用该被动技能
+					if (IsPassiveAbility(*SpecWithSlot))	//若选定技能槽中的技能为被动技能
 					{
-						DeactivatePassiveAbility.Broadcast(GetAbilityTagFromSpec(*SpecWithSlot));
+						MulticastActivatePassiveEffect(GetAbilityTagFromSpec(*SpecWithSlot), false);	//展示禁用特效
+						DeactivatePassiveAbility.Broadcast(GetAbilityTagFromSpec(*SpecWithSlot));	//禁用该被动技能
 					}
 					ClearSlot(SpecWithSlot);	//清空该技能槽
 				}
@@ -329,9 +335,10 @@ void UAuraAbilitySystemComponent::ServerEquipAbility_Implementation(const FGamep
 		
 			if (!AbilityHasAnySlot(*AbilitySpec))	//若选定技能未被置入技能槽（未激活）
 			{
-				if (IsPassiveAbility(*AbilitySpec)) //若选定技能为被动技能，尝试激活该技能
+				if (IsPassiveAbility(*AbilitySpec)) //若选定技能为被动技能
 				{
-					TryActivateAbility(AbilitySpec->Handle);
+					TryActivateAbility(AbilitySpec->Handle);	//尝试激活该技能
+					MulticastActivatePassiveEffect(AbilityTag, true);	//展示激活特效
 				}
 			}
 			AssignSlotToAbility(*AbilitySpec, Slot);

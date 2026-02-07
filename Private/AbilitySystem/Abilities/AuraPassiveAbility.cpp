@@ -8,8 +8,7 @@
 
 UAuraPassiveAbility::UAuraPassiveAbility()
 {
-	// 服务器初始化适用于被动技能
-	NetExecutionPolicy = EGameplayAbilityNetExecutionPolicy::ServerInitiated;
+	NetExecutionPolicy = EGameplayAbilityNetExecutionPolicy::ServerInitiated; //ServerInitiated（服务器发起）适用于被动技能
 }
 
 void UAuraPassiveAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
