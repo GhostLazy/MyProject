@@ -20,7 +20,6 @@ class MYPROJECT_API IPlayerInterface
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	
 	UFUNCTION(BlueprintNativeEvent)
@@ -55,5 +54,11 @@ public:
 	
 	UFUNCTION(BlueprintNativeEvent)
 	void LevelUp();
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void ShowMagicCircle(UMaterialInterface* DecalMaterial = nullptr);
+	
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void HideMagicCircle();
 	
 };

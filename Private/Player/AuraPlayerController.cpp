@@ -8,6 +8,8 @@
 #include "NavigationSystem.h"
 #include "NiagaraFunctionLibrary.h"
 #include "AbilitySystem/AuraAbilitySystemComponent.h"
+#include "Actor/MagicCircle.h"
+#include "Components/DecalComponent.h"
 #include "Components/SplineComponent.h"
 #include "Input/AuraInputComponent.h"
 #include "Interaction/EnemyInterface.h"
@@ -23,14 +25,34 @@ AAuraPlayerController::AAuraPlayerController()
 void AAuraPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
-	CursorTrace();
-	AutoRun();
+	CursorTrace();	//每帧设置高亮
+	AutoRun();		//每帧执行自动跑动
+	UpdateMagicCircleLocation();	//每帧更新法阵位置
+}
+
+void AAuraPlayerController::ShowMagicCircle(UMaterialInterface* DecalMaterial)
+{
+	if (!IsValid(MagicCircle))
+	{
+		MagicCircle = GetWorld()->SpawnActor<AMagicCircle>(MagicCircleClass);
+		if (DecalMaterial != nullptr)
+		{
+			MagicCircle->MagicCircleDecal->SetMaterial(0, DecalMaterial);
+		}
+	}
+}
+
+void AAuraPlayerController::HideMagicCircle()
+{
+	if (IsValid(MagicCircle))
+	{
+		MagicCircle->Destroy();
+	}
 }
 
 void AAuraPlayerController::ShowDamageNumber_Implementation(float DamageAmount, ACharacter* TargetCharacter, bool bBlockedHit, bool bCriticalHit)
 {
-	// Only can be seen on LocalController
-	if (IsValid(TargetCharacter) && DamageTextComponentClass && IsLocalController())
+	if (IsValid(TargetCharacter) && DamageTextComponentClass && IsLocalController())	//伤害仅在本地控制器显示
 	{
 		UDamageTextComponent* DamageText = NewObject<UDamageTextComponent>(TargetCharacter, DamageTextComponentClass);
 		DamageText->RegisterComponent();
@@ -57,23 +79,32 @@ void AAuraPlayerController::AutoRun()
 	}
 }
 
+void AAuraPlayerController::UpdateMagicCircleLocation()
+{
+	if (IsValid(MagicCircle))
+	{
+		MagicCircle->SetActorLocation(CursorHit.ImpactPoint);
+	}
+}
+
 void AAuraPlayerController::CursorTrace()
 {
-	if (GetASC() && GetASC()->HasMatchingGameplayTag(FAuraGameplayTags::Get().Player_Block_CursorTrace))
+	if (GetASC() && GetASC()->HasMatchingGameplayTag(FAuraGameplayTags::Get().Player_Block_CursorTrace))	//若光标正在被阻止
 	{
 		if (LastActor) LastActor->UnHighlightActor();
-		if (ThisActor) ThisActor->UnHighlightActor();
+		if (ThisActor) ThisActor->UnHighlightActor();	//取消全部高亮
 		LastActor = nullptr;
-		ThisActor = nullptr;
+		ThisActor = nullptr;	//光标命中Actor信息置空
 		return;
 	}
+	
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
-	if (!CursorHit.bBlockingHit) return;
+	if (!CursorHit.bBlockingHit) return;	//若光标未命中目标，提前返回
 	
 	LastActor = ThisActor;
-	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
+	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());	//更新光标命中Actor信息
 	
-	if (LastActor != ThisActor)
+	if (LastActor != ThisActor)	//设置高亮
 	{
 		if (LastActor) LastActor->UnHighlightActor();
 		if (ThisActor) ThisActor->HighlightActor();
