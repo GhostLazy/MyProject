@@ -158,7 +158,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.DamageTypesToDebuffs.Add(GameplayTags.Damage_Physical, GameplayTags.Debuff_Physical);
 	/* Map of Damage Types to Debuffs Start */
 	
-	/* Offensive Abilities Start */
+	/* Enemy Abilities Start */
 	GameplayTags.Abilities_None = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.None"), FString("No Ability - like the nullptr for Ability Tags"));
 	
@@ -166,13 +166,18 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		FName("Abilities.Attack"), FString("Attack Ability Tag"));
 	
 	GameplayTags.Abilities_Summon = UGameplayTagsManager::Get().AddNativeGameplayTag(
-		FName("Abilities.Summon"), FString("Summon Ability Tag"));
+    		FName("Abilities.Summon"), FString("Summon Ability Tag"));
+	/* Enemy Abilities End */
 	
+	/* Offensive Abilities Start */
 	GameplayTags.Abilities_Fire_FireBolt = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Fire.FireBolt"), FString("FireBolt Ability Tag"));
 	
 	GameplayTags.Abilities_Lightning_Electrocute = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Lightning.Electrocute"), FString("Electrocute Ability Tag"));
+	
+	GameplayTags.Abilities_Arcane_ArcaneShards = UGameplayTagsManager::Get().AddNativeGameplayTag(
+		FName("Abilities.Arcane.ArcaneShards"), FString("Arcane Shards Ability Tag"));
 	/* Offensive Abilities End */
 	
 	/* Passive Abilities Start */
