@@ -14,6 +14,7 @@
 #include "Input/AuraInputComponent.h"
 #include "Interaction/EnemyInterface.h"
 #include "GameFramework/Character.h"
+#include "MyProject/MyProject.h"
 #include "UI/Widget/DamageTextComponent.h"
 
 AAuraPlayerController::AAuraPlayerController()
@@ -98,7 +99,8 @@ void AAuraPlayerController::CursorTrace()
 		return;
 	}
 	
-	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
+	const ECollisionChannel TraceChannel = IsValid(MagicCircle) ? ECC_ExcludePlayers : ECC_Visibility;	//若奥术法阵激活，改变碰撞通道（忽略Player）
+	GetHitResultUnderCursor(TraceChannel, false, CursorHit);
 	if (!CursorHit.bBlockingHit) return;	//若光标未命中目标，提前返回
 	
 	LastActor = ThisActor;
