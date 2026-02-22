@@ -98,7 +98,7 @@ void AAuraProjectile::OnSphereOverlap(UPrimitiveComponent* OverlappedComponent, 
 	else bHit = true;
 }
 
-bool AAuraProjectile::IsValidOverlap(AActor* OtherActor)
+bool AAuraProjectile::IsValidOverlap(AActor* OtherActor) const
 {
 	if (DamageEffectParams.SourceAbilitySystemComponent == nullptr) return false;
 	AActor* SourceAvatarActor = DamageEffectParams.SourceAbilitySystemComponent->GetAvatarActor();

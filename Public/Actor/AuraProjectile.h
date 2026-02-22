@@ -35,7 +35,7 @@ protected:
 	virtual void BeginPlay() override;
 	
 	UFUNCTION(BlueprintCallable)
-	void OnHit();
+	virtual void OnHit();
 	
 	virtual void Destroyed() override;
 	
@@ -44,7 +44,7 @@ protected:
 	                             UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
 	                             const FHitResult& SweepResult);
 	
-	bool IsValidOverlap(AActor* OtherActor);
+	bool IsValidOverlap(AActor* OtherActor) const;
 	bool bHit = false;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
@@ -52,6 +52,9 @@ protected:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<USoundBase> ImpactSound;
+	
+	UPROPERTY()
+	TObjectPtr<UAudioComponent> LoopingSoundComponent;
 	
 private:
 	
@@ -64,6 +67,4 @@ private:
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USoundBase> LoopingSound;
 	
-	UPROPERTY()
-	TObjectPtr<UAudioComponent> LoopingSoundComponent;
 };
