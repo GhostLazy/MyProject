@@ -18,6 +18,7 @@ class MYPROJECT_API AAuraProjectile : public AActor
 	GENERATED_BODY()
 	
 public:	
+	
 	AAuraProjectile();
 	
 	UPROPERTY(VisibleAnywhere)
@@ -43,6 +44,9 @@ protected:
 	                             UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
 	                             const FHitResult& SweepResult);
 	
+	bool IsValidOverlap(AActor* OtherActor);
+	bool bHit = false;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	TObjectPtr<UNiagaraSystem> ImpactEffect;
 	
@@ -53,8 +57,6 @@ private:
 	
 	UPROPERTY(EditDefaultsOnly)
 	float LifeSpan = 15.f;
-	
-	bool bHit = false;
 	
 	UPROPERTY(VisibleAnywhere)
 	TObjectPtr<USphereComponent> Sphere;
