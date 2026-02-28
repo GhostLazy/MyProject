@@ -19,6 +19,8 @@ void ALoadScreenHUD::BeginPlay()
 	LoadScreenWidget->AddToViewport();
 	LoadScreenWidget->BlueprintInitializeWidget();
 	
+	LoadScreenViewModel->LoadData();
+	
 	APlayerController* PC = UGameplayStatics::GetPlayerController(LoadScreenWidget->GetWorld(), 0);
 	UWidgetBlueprintLibrary::SetInputMode_UIOnlyEx(PC, LoadScreenWidget);
 	PC->bShowMouseCursor = true;
