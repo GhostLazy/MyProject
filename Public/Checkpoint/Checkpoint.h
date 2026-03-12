@@ -23,7 +23,7 @@ public:
 	ACheckpoint(const FObjectInitializer& ObjectInitializer);
 	
 	/* Save Interface Start */
-	virtual bool ShouldLoadTransform_Implementation() override { return false; };
+	virtual bool ShouldLoadTransform_Implementation() override { return false; }
 	virtual void LoadActor_Implementation() override;
 	/* Save Interface End */
 	
