@@ -41,7 +41,13 @@ public:
 	
 	/* Combat Interface Start */
 	virtual int32 GetPlayerLevel_Implementation() override;
+	virtual void Die(const FVector& DeathImpulse) override;
 	/* Combat Interface End */
+	
+	UPROPERTY(EditDefaultsOnly)
+	float DeathTime = 5.f;
+	
+	FTimerHandle DeathTimer;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TObjectPtr<UNiagaraComponent> LevelUpComponent;
