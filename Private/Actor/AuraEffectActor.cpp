@@ -19,7 +19,10 @@ AAuraEffectActor::AAuraEffectActor()
 void AAuraEffectActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	RunningTime += DeltaTime;
+	if (bSinusoidalMovement)
+	{
+		RunningTime += DeltaTime;
+	}
 	const float SinePeriod = 2 * PI / SinePeriodConstant;
 	if (RunningTime > SinePeriod)
 	{
