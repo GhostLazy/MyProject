@@ -32,7 +32,9 @@ public:
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 	
-	/* Combat Interface Start */
+	/** 
+	 * 战斗接口 
+	 */
 	virtual FVector GetCombatSocketLocation_Implementation(const FGameplayTag& MontageTag) override;
 	virtual bool IsDead_Implementation() const override;
 	virtual AActor* GetAvatar_Implementation() override;
@@ -50,7 +52,7 @@ public:
 	virtual bool IsBeingShocked_Implementation() override;
 	virtual void SetIsBeingShocked_Implementation(bool bInShock) override;
 	virtual FOnDamageSignature& GetOnDamageSignature() override;
-	/* Combat Interface End */
+
 	
 	FOnASCRegistered OnASCRegistered;
 	FOnDeath OnDeath;

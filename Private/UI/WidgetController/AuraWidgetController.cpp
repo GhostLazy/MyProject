@@ -29,7 +29,7 @@ void UAuraWidgetController::BindCallbacksToDependencies()
 
 void UAuraWidgetController::BroadCastAbilityInfo()
 {
-	// Get information about all abilities, look up their Ability Info, and broadcast it to widgets.
+	// 获取全部技能的信息，并发起广播
 	if (!GetAuraASC()->bStartupAbilitiesGiven) return;
 	
 	FForEachAbility BroadcastDelegate;

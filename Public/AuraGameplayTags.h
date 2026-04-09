@@ -6,9 +6,8 @@
 #include "GameplayTagContainer.h"
 
 /**
- * Aura Gameplay Tags
- * 
- * Singleton containing native Gameplay Tags
+ *	Aura Gameplay Tags
+ *	包含C++原生标签的单例
  */
 
 struct FAuraGameplayTags

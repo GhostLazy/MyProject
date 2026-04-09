@@ -1,5 +1,5 @@
 // Copyright GhostLazy
 
-#include "AuraLogChannels.h"
+#include "HertaLogChannels.h"
 
 DEFINE_LOG_CATEGORY(LogAura);

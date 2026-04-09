@@ -63,9 +63,9 @@ UExecCalc_Damage::UExecCalc_Damage()
 	RelevantAttributesToCapture.Add(DamageStatics().ArcaneResistanceDef);
 	RelevantAttributesToCapture.Add(DamageStatics().PhysicalResistanceDef);
 }
-	/* Boilerplate End */
+/* Boilerplate End */
 
-void UExecCalc_Damage::DetermineDebuff(const FGameplayEffectCustomExecutionParameters& ExecutionParams, const FGameplayEffectSpec& Spec, FAggregatorEvaluateParameters EvaluationParameters, const TMap<FGameplayTag, FGameplayEffectAttributeCaptureDefinition>& InTagsToDefs) const
+void UExecCalc_Damage::DetermineDebuff(const FGameplayEffectCustomExecutionParameters& ExecutionParams, const FGameplayEffectSpec& Spec, const FAggregatorEvaluateParameters& EvaluationParameters, const TMap<FGameplayTag, FGameplayEffectAttributeCaptureDefinition>& InTagsToDefs)
 {
 	const FAuraGameplayTags& GameplayTags = FAuraGameplayTags::Get();
 	
@@ -84,8 +84,7 @@ void UExecCalc_Damage::DetermineDebuff(const FGameplayEffectCustomExecutionParam
 			TargetDebuffResistance = FMath::Max<float>(TargetDebuffResistance, 0.f);
 			const float EffectiveDebuffChance = SourceDebuffChance * (100.f - TargetDebuffResistance) / 100.f;
 			
-			const bool bDebuff = FMath::RandRange(0.f, 100.f) < EffectiveDebuffChance;
-			if (bDebuff)
+			if (const bool bDebuff = FMath::RandRange(0.f, 100.f) < EffectiveDebuffChance)
 			{
 				FGameplayEffectContextHandle ContextHandle = Spec.GetContext();
 				

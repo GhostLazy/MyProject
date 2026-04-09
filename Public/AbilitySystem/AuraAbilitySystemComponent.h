@@ -8,12 +8,26 @@
 
 class ULoadScreenSaveGame;
 class UAuraAbilitySystemComponent;
+
+/** 客户端GE应用时触发，用于展示拾取物拾取提示消息 */
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer);
+
+/** ASC向角色赋予技能时触发 */
 DECLARE_MULTICAST_DELEGATE(FAbilitiesGiven);
+
+/** 遍历技能时触发 */
 DECLARE_DELEGATE_OneParam(FForEachAbility, const FGameplayAbilitySpec&);
+
+/** 技能状态改变时触发 */
 DECLARE_MULTICAST_DELEGATE_ThreeParams(FAbilityStatusChanged, const FGameplayTag& /*AbilityTag*/, const FGameplayTag& /*StatusTag*/, int32 /*AbilityLevel*/);
+
+/** 技能装备时触发 */
 DECLARE_MULTICAST_DELEGATE_FourParams(FAbilityEquipped, const FGameplayTag& /*AbilityTag*/, const FGameplayTag& /*StatusTag*/, const FGameplayTag& /*Slot*/, const FGameplayTag& /*PrevSlot*/)
+
+/** 禁用被动技能时触发 */
 DECLARE_MULTICAST_DELEGATE_OneParam(FDeactivatePassiveAbility, const FGameplayTag& /*AbilityTag*/);
+
+/** 激活被动效果时触发 */
 DECLARE_MULTICAST_DELEGATE_TwoParams(FActivatePassiveEffect, const FGameplayTag& /*AbilityTag*/, bool /*bActivate*/);
 
 /**
@@ -33,11 +47,27 @@ public:
 	FDeactivatePassiveAbility DeactivatePassiveAbility;
 	FActivatePassiveEffect ActivatePassiveEffect;
 
+	/**
+	 * 初始技能
+	 */
+	
+	/** 从存档抓取角色技能 */
 	void AddCharacterAbilitiesFromSaveData(ULoadScreenSaveGame* SaveData);
+	
+	/** 从初始技能组抓取角色技能 */
 	void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
+	
+	/** 从初始被动技能组抓取角色被动技能 */
 	void AddCharacterPassiveAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupPassiveAbilities);
+	
+	/** 标识初始技能是否已赋予 */
 	bool bStartupAbilitiesGiven = false;
 	
+
+	/**
+	 * 输入指令回调函数
+	 * @param InputTag 输入标签
+	 */
 	void AbilityInputTagPressed(const FGameplayTag& InputTag);
 	void AbilityInputTagHeld(const FGameplayTag& InputTag);
 	void AbilityInputTagReleased(const FGameplayTag& InputTag);

@@ -10,7 +10,7 @@
 #include "AbilitySystem/Data/AbilityInfo.h"
 #include "Game/LoadScreenSaveGame.h"
 #include "Interaction/PlayerInterface.h"
-#include "MyProject/AuraLogChannels.h"
+#include "MyProject/HertaLogChannels.h"
 
 void UAuraAbilitySystemComponent::AbilityActorInfoSet()
 {
@@ -19,6 +19,7 @@ void UAuraAbilitySystemComponent::AbilityActorInfoSet()
 
 void UAuraAbilitySystemComponent::AddCharacterAbilitiesFromSaveData(ULoadScreenSaveGame* SaveData)
 {
+	//遍历存档存储技能，并赋予技能
 	for (const FSavedAbility& Data : SaveData->SavedAbilities)
 	{
 		const TSubclassOf<UGameplayAbility> LoadedAbilityClass = Data.GameplayAbility;
@@ -43,8 +44,8 @@ void UAuraAbilitySystemComponent::AddCharacterAbilitiesFromSaveData(ULoadScreenS
 			}
 		}
 	}
-	bStartupAbilitiesGiven = true;
-	AbilitiesGivenDelegate.Broadcast();
+	bStartupAbilitiesGiven = true;	//标记初始技能已赋予
+	AbilitiesGivenDelegate.Broadcast();	//触发赋予技能委托
 }
 
 void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
@@ -59,8 +60,8 @@ void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf
 			GiveAbility(AbilitySpec);
 		}
 	}
-	bStartupAbilitiesGiven = true;
-	AbilitiesGivenDelegate.Broadcast();
+	bStartupAbilitiesGiven = true;	//标记初始技能已赋予
+	AbilitiesGivenDelegate.Broadcast();	//触发赋予技能委托
 }
 
 void UAuraAbilitySystemComponent::AddCharacterPassiveAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupPassiveAbilities)
@@ -81,12 +82,13 @@ void UAuraAbilitySystemComponent::AbilityInputTagPressed(const FGameplayTag& Inp
 	{
 		if (AbilitySpec.GetDynamicSpecSourceTags().HasTagExact(InputTag))
 		{
-			AbilitySpecInputPressed(AbilitySpec);
+			AbilitySpecInputPressed(AbilitySpec);	//更新输入状态
 			if (AbilitySpec.IsActive())
 			{
 				TArray<UGameplayAbility*> Instances = AbilitySpec.GetAbilityInstances();
 				const FGameplayAbilityActivationInfo& ActivationInfo = Instances.Last()->GetCurrentActivationInfoRef();
 				FPredictionKey OriginalPredictionKey = ActivationInfo.GetActivationPredictionKey();
+				//确保服务器能同步执行“输入按下”后的逻辑，保证 C/S 两端在技能执行链条上的状态是绝对一致的
 				InvokeReplicatedEvent(EAbilityGenericReplicatedEvent::InputPressed, AbilitySpec.Handle, OriginalPredictionKey);
 			}
 		}

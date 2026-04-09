@@ -76,8 +76,8 @@ void UOverlayWidgetController::BindCallbacksToDependencies()
 		{
 			for (const FGameplayTag& Tag : AssetTags)
 			{
-				// "A.1".MatchesTag("A") will return True, "A".MatchesTag("A.1") will return False
 				FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+				// 若标签含“Message”，展示拾取物拾取提示消息
 				if (Tag.MatchesTag(MessageTag))
 				{
 					const FUIWidgetRow* Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);

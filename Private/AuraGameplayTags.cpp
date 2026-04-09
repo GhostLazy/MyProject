@@ -8,9 +8,7 @@ FAuraGameplayTags FAuraGameplayTags::GameplayTags;
 
 void FAuraGameplayTags::InitializeNativeGameplayTags()
 {
-	/*
-	 * Primary Attributes
-	 */
+	/* 主属性 */
 	GameplayTags.Attributes_Primary_Strength = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Primary.Strength"), FString("Increases physical damage"));
 
@@ -23,9 +21,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.Attributes_Primary_Vigor = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Primary.Vigor"), FString("Increases Health"));
 
-	/*
-	 * Secondary Attributes
-	 */
+	/* 副属性 */
 	GameplayTags.Attributes_Secondary_Armor = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.Armor"), FString("Reduces damage taken, improves Block Chance"));
 
@@ -56,7 +52,7 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.Attributes_Secondary_MaxMana = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Secondary.MaxMana"), FString("Maximum amount of Mana obtainable"));
 
-	/* Input Tags Start */
+	/* 输入标签 */
 	GameplayTags.InputTag_LMB = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("InputTag.LMB"), FString("Input Tag for Left Mouse Button"));
 
@@ -80,9 +76,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.InputTag_Passive_2 = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("InputTag.Passive.2"), FString("Input Tag Passive Ability 2"));
-	/* Input Tags End */
 	
-	/* Damage Types Start */
+	/* 伤害类型标签 */
 	GameplayTags.Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Damage"), FString("Damage"));
 	
@@ -97,9 +92,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 		
 	GameplayTags.Damage_Physical = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Damage.Physical"), FString("Physical Damage Type"));
-	/* Damage Types End */
 	
-	/* Resistance Start */
+	/* 抗性标签 */
 	GameplayTags.Attributes_Resistance_Fire = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Resistance.Fire"), FString("Resistance to Fire damage"));
 	
@@ -111,9 +105,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Attributes_Resistance_Physical = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Resistance.Physical"), FString("Resistance to Physical damage"));
-	/* Resistance End */
 	
-	/* Debuff Start */
+	/* Debuff标签 */
 	GameplayTags.Debuff_Burn = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Debuff.Burn"), FString("Debuff for Fire Damage"));
 	
@@ -137,28 +130,24 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Debuff_Frequency = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Debuff.Frequency"), FString("Debuff Frequency"));
-	/* Debuff End */
 	
-	/* Meta Attributes Start */
+	/* 元属性标签 */
 	GameplayTags.Attributes_Meta_IncomingXP = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Attributes.Meta.IncomingXP"), FString("Incoming XP Meta Attribute"));
-	/* Meta Attributes End */
 	
-	/* Map of Damage Types to Resistances Start */
+	/* 伤害类型&抗性 映射标签 */
 	GameplayTags.DamageTypesToResistances.Add(GameplayTags.Damage_Fire, GameplayTags.Attributes_Resistance_Fire);
 	GameplayTags.DamageTypesToResistances.Add(GameplayTags.Damage_Lightning, GameplayTags.Attributes_Resistance_Lightning);
 	GameplayTags.DamageTypesToResistances.Add(GameplayTags.Damage_Arcane, GameplayTags.Attributes_Resistance_Arcane);
 	GameplayTags.DamageTypesToResistances.Add(GameplayTags.Damage_Physical, GameplayTags.Attributes_Resistance_Physical);
-	/* Map of Damage Types to Resistances Start */
 	
-	/* Map of Damage Types to Debuffs Start */
+	/* 伤害类型&Debuff 映射标签 */
 	GameplayTags.DamageTypesToDebuffs.Add(GameplayTags.Damage_Fire, GameplayTags.Debuff_Burn);
 	GameplayTags.DamageTypesToDebuffs.Add(GameplayTags.Damage_Lightning, GameplayTags.Debuff_Stun);
 	GameplayTags.DamageTypesToDebuffs.Add(GameplayTags.Damage_Arcane, GameplayTags.Debuff_Arcane);
 	GameplayTags.DamageTypesToDebuffs.Add(GameplayTags.Damage_Physical, GameplayTags.Debuff_Physical);
-	/* Map of Damage Types to Debuffs Start */
 	
-	/* Enemy Abilities Start */
+	/* 敌方技能标签 */
 	GameplayTags.Abilities_None = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.None"), FString("No Ability - like the nullptr for Ability Tags"));
 	
@@ -167,9 +156,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Abilities_Summon = UGameplayTagsManager::Get().AddNativeGameplayTag(
     		FName("Abilities.Summon"), FString("Summon Ability Tag"));
-	/* Enemy Abilities End */
 	
-	/* Offensive Abilities Start */
+	/* 主动技能标签 */
 	GameplayTags.Abilities_Fire_FireBolt = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Fire.FireBolt"), FString("FireBolt Ability Tag"));
 	
@@ -181,9 +169,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Abilities_Arcane_ArcaneShards = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Arcane.ArcaneShards"), FString("Arcane Shards Ability Tag"));
-	/* Offensive Abilities End */
 	
-	/* Passive Abilities Start */
+	/* 被动技能标签 */
 	GameplayTags.Abilities_Passive_HaloOfProtection = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Passive.HaloOfProtection"), FString("Halo Of Protection"));
 
@@ -192,9 +179,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Abilities_Passive_ManaSiphon = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Passive.ManaSiphon"), FString("Mana Siphon"));
-	/* Passive Abilities End */
 	
-	/* Other Abilities Start */
+	/* 技能辅助标签 */
 	GameplayTags.Abilities_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.HitReact"), FString("Hit React Ability Tag"));
 	
@@ -218,14 +204,12 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Abilities_Type_None = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Abilities.Type.None"), FString("None Type"));
-	/* Other Abilities End */
 	
-	/* Cooldown Start */
+	/* 冷却标签（可采用非C++原生标签） */
 	GameplayTags.Cooldown_Fire_FireBolt = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Cooldown.Fire.FireBolt"), FString("FireBolt Cooldown Tag"));
-	/* Cooldown End */
 	
-	/* CombatSocket Start */
+	/* 攻击插槽标签 */
 	GameplayTags.CombatSocket_Weapon = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("CombatSocket.Weapon"), FString("Weapon"));
 	
@@ -237,9 +221,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.CombatSocket_Tail = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("CombatSocket.Tail"), FString("Tail"));
-	/* CombatSocket End */
 	
-	/* Montage Start */
+	/* 动画标签 */
 	GameplayTags.Montage_Attack_1 = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Montage.Attack.1"), FString("Attack 1"));
 	
@@ -251,14 +234,12 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Montage_Attack_4 = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Montage.Attack.4"), FString("Attack 4"));
-	/* Montage End */
 	
-	/* Effects Start */
+	/* 效果标签 */
 	GameplayTags.Effects_HitReact = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Effects.HitReact"), FString("Tag granted when Hit Reacting"));
-	/* Effects End */
 	
-	/* Player Start */
+	/* 玩家阻挡标签 */
 	GameplayTags.Player_Block_CursorTrace = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Player.Block.CursorTrace"), FString("Block tracing under the cursor"));
 	
@@ -270,10 +251,8 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	
 	GameplayTags.Player_Block_InputReleased = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("Player.Block.InputReleased"), FString("Block Input Released callback for input"));
-	/* Player End */
 	
-	/* GameplayCues Start */
+	/* 技能特效标签（可采用非C++原生标签） */
 	GameplayTags.GameplayCue_FireBlast = UGameplayTagsManager::Get().AddNativeGameplayTag(
 		FName("GameplayCue.FireBlast"), FString("FireBlast GameplayCue Tag"));
-	/* GameplayCues End */
 }
