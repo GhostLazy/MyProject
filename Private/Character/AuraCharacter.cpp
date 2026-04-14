@@ -2,7 +2,7 @@
 
 
 #include "Character/AuraCharacter.h"
-
+#include "Components/CapsuleComponent.h"
 #include "AuraGameplayTags.h"
 #include "NiagaraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -17,6 +17,7 @@
 #include "Game/LoadScreenSaveGame.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "MyProject/MyProject.h"
 #include "Player/AuraPlayerController.h"
 #include "UI/HUD/AuraHUD.h"
 
@@ -30,6 +31,11 @@ AAuraCharacter::AAuraCharacter()
 	TopDownCameraComponent = CreateDefaultSubobject<UCameraComponent>("TopDownCameraComponent");
 	TopDownCameraComponent->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	TopDownCameraComponent->bUsePawnControlRotation = false;
+	
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Camera, ECR_Ignore);
+	GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Projectile, ECR_Overlap);
+	GetCapsuleComponent()->SetGenerateOverlapEvents(true);
+	GetMesh()->SetGenerateOverlapEvents(false);
 	
 	LevelUpComponent = CreateDefaultSubobject<UNiagaraComponent>("LevelUpNiagaraComponent");
 	LevelUpComponent->SetupAttachment(GetRootComponent());
